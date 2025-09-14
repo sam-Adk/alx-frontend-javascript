@@ -1,3 +1,4 @@
+
 // Define an interface named Teacher
 // This interface will describe the structure of a Teacher object
 interface Teacher {
