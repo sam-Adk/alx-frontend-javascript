@@ -1,5 +1,3 @@
-// task_3/js/main.ts
-
 /// <reference path="./crud.d.ts" />
 
 import { RowID, RowElement } from "./interface";
@@ -20,5 +18,9 @@ const updatedRow: RowElement = {
   age: 23,
 };
 
+// Call updateRow
 CRUD.updateRow(newRowID, updatedRow);
+
+// Call deleteRow
 CRUD.deleteRow(newRowID);
+
