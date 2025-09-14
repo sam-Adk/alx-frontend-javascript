@@ -1,10 +1,8 @@
-// Define a type for row IDs
+// task_3/js/interface.ts
 export type RowID = number;
 
-// Define the shape of a Row element
 export interface RowElement {
   firstName: string;
   lastName: string;
-  age?: number; // optional
+  age?: number;
 }
-
