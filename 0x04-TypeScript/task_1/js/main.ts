@@ -1,42 +1,69 @@
-// task_1/js/main.ts
-
-// 1. Teacher interface
+// Define an interface named Teacher
+// This interface will describe the structure of a Teacher object
 interface Teacher {
-  readonly firstName: string;
-  readonly lastName: string;
-  fullTimeEmployee: boolean;
-  yearsOfExperience?: number;
-  location: string;
-  [propName: string]: any;
+  readonly firstName: string; // readonly means it cannot be changed after initialization
+  readonly lastName: string; // readonly means it cannot be changed after initialization
+  fullTimeEmployee: boolean; // must always be defined
+  yearsOfExperience?: number; // optional property
+  location: string; // must always be defined
+  [key: string]: any; // allows extra properties not defined above
 }
 
-// 2. Directors extends Teacher
-interface Directors extends Teacher {
-  numberOfReports: number;
-}
+// Example usage of the Teacher interface
 
-// 3. printTeacher function + interface
-interface printTeacherFunction {
-  (firstName: string, lastName: string): string;
-}
-
-const printTeacher: printTeacherFunction = (firstName, lastName) => {
-  return `${firstName.charAt(0)}. ${lastName}`;
+// Teacher object with all required properties and an extra property "contract"
+const teacher3: Teacher = {
+  firstName: 'John',
+  lastName: 'Doe',
+  fullTimeEmployee: false,
+  location: 'London',
+  contract: false, // extra property allowed by [key: string]: any
 };
 
-// 4. Interfaces for StudentClass
-// Constructor interface
-interface StudentConstructor {
+// Log the object to see the structure in the console
+console.log(teacher3);
+
+// Expected output in the terminal/browser console:
+// {
+//   firstName: "John",
+//   lastName: "Doe",
+//   fullTimeEmployee: false,
+//   location: "London",
+//   contract: false
+// }
+
+// Define an interface for the function
+interface printTeacherFunction {
+  ({ firstName, lastName }: { firstName: string; lastName: string }): string;
+}
+
+// Implement the function with destructuring
+// function printTeacher()
+const printTeacher: printTeacherFunction = ({
+  firstName,
+  lastName,
+}: {
+  firstName: string;
+  lastName: string;
+}): string => {
+  return `${firstName}. ${lastName}`;
+};
+
+console.log(printTeacher({ firstName: 'John', lastName: 'Doe' })); // J. Doe
+
+// Interface describing the constructor of StudentClass
+interface StudentClassConstructor {
   new (firstName: string, lastName: string): StudentClassInterface;
 }
 
-// Student class interface
+// Interface describing the methods of StudentClass
 interface StudentClassInterface {
   workOnHomework(): string;
   displayName(): string;
 }
 
-// 5. Class implementation
+// Class definition StudentClass
+// class StudentClass {}
 class StudentClass implements StudentClassInterface {
   private firstName: string;
   private lastName: string;
@@ -46,19 +73,18 @@ class StudentClass implements StudentClassInterface {
     this.lastName = lastName;
   }
 
+  // Method workOnHomework returns "Currently working"
   workOnHomework(): string {
-    return "Currently working";
+    return 'Currently working';
   }
 
+  // Method displayName returns the firstName
   displayName(): string {
     return this.firstName;
   }
 }
 
-// 6. Example usage
-const student: StudentClassInterface = new StudentClass("Samuel", "Adikah");
-
-console.log(printTeacher("John", "Doe")); // J. Doe
-console.log(student.displayName());       // Samuel
-console.log(student.workOnHomework());    // Currently working
-
+// Example usage
+const student = new StudentClass('John', 'Doe');
+console.log(student.workOnHomework()); // Currently working
+console.log(student.displayName()); // John
