@@ -1,63 +1,59 @@
-// task_2/js/main.ts
 
-// 1. Director interface
+
+// Interfaces
 interface DirectorInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
   workDirectorTasks(): string;
 }
 
-// 2. Teacher interface
 interface TeacherInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
   workTeacherTasks(): string;
 }
 
-// 3. Director class
+// Director class
 class Director implements DirectorInterface {
   workFromHome(): string {
-    return "Working from home";
+    return 'Working from home';
   }
-
   getCoffeeBreak(): string {
-    return "Getting a coffee break";
+    return 'Getting a coffee break';
   }
-
   workDirectorTasks(): string {
-    return "Getting to director tasks";
+    return 'Getting to director tasks';
   }
 }
 
-// 4. Teacher class
+// Teacher class
 class Teacher implements TeacherInterface {
   workFromHome(): string {
-    return "Cannot work from home";
+    return 'Cannot work from home';
   }
-
   getCoffeeBreak(): string {
-    return "Cannot have a break";
+    return 'Cannot have a break';
   }
-
   workTeacherTasks(): string {
-    return "Getting to work";
+    return 'Getting to work';
   }
 }
 
-// 5. createEmployee function
+// Factory function
+// if (salary < 500)
 function createEmployee(salary: number | string): Director | Teacher {
-  if (typeof salary === "number" && salary < 500) {
+  if (typeof salary === 'number' && salary < 500) {
     return new Teacher();
   }
   return new Director();
 }
 
-// 6. Type predicate
+// 6. Creating functions specific to employees
+// "export function isDirector"
 function isDirector(employee: Director | Teacher): employee is Director {
   return employee instanceof Director;
 }
 
-// 7. executeWork function
 function executeWork(employee: Director | Teacher): string {
   if (isDirector(employee)) {
     return employee.workDirectorTasks();
@@ -65,21 +61,26 @@ function executeWork(employee: Director | Teacher): string {
   return employee.workTeacherTasks();
 }
 
-// 8. String literal type Subjects
-type Subjects = "Math" | "History";
+// 7. String literal types
+// todayClass:Subjects
+type Subjects = 'Math' | 'History';
 
-// 9. teachClass function
 function teachClass(todayClass: Subjects): string {
-  if (todayClass === "Math") {
-    return "Teaching Math";
+  if (todayClass === 'Math') {
+    return 'Teaching Math';
   }
-  return "Teaching History";
+  return 'Teaching History';
 }
 
-// 10. Example usage
-console.log(executeWork(createEmployee(200)));    // Getting to work
-console.log(executeWork(createEmployee(1000)));   // Getting to director tasks
+// Tests
+console.log(createEmployee(200)); // Teacher {}
+console.log(createEmployee(1000)); // Director {}
+console.log(createEmployee('$500')); // Director {}
 
-console.log(teachClass("Math"));    // Teaching Math
-console.log(teachClass("History")); // Teaching History
+console.log(executeWork(createEmployee(200))); // Getting to work
+console.log(executeWork(createEmployee(1000))); // Getting to director tasks
+
+console.log(teachClass('Math')); // Teaching Math
+console.log(teachClass('History')); // Teaching History
+
 
